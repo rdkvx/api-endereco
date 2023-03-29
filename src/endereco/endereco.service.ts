@@ -4,7 +4,7 @@ import { CreateEnderecoDto } from './dto/create-endereco.dto';
 import { UpdateEnderecoDto } from './dto/update-endereco.dto';
 import { Endereco } from './entities/endereco.entity';
 import { utilsEndereco } from './utils/constants';
-import { validaCampoVazio, validaTodosOsCampos } from './utils/utils';
+import { validaCampoVazio, validaNumeroDeCaracter, validaTodosOsCampos } from './utils/utils';
 
 
 @Injectable()
@@ -16,10 +16,9 @@ export class EnderecoService {
 
   create(createEnderecoDto: CreateEnderecoDto) {
     if(validaCampoVazio(createEnderecoDto)){
+      
       try{
-        this.enderecoRepository.save(createEnderecoDto);
-
-        return
+        return this.enderecoRepository.save(createEnderecoDto);
       }catch{
         throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
       }
@@ -37,17 +36,18 @@ export class EnderecoService {
   update(id: number, updateEnderecoDto: UpdateEnderecoDto) {
     if(validaTodosOsCampos(updateEnderecoDto)){
       try{
-         this.enderecoRepository.update(id, updateEnderecoDto);
-
-         return
+        return this.enderecoRepository.update(id, updateEnderecoDto);
       }catch{
         throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
-   
   }
 
   remove(id: number) {
-    return this.enderecoRepository.delete(id);
+    try{
+      return this.enderecoRepository.delete(id);
+    }catch{
+      throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }
