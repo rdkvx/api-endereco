@@ -4,5 +4,4 @@ const   dataSource = 'DATA_SOURCE',
 export let utilsDB = {
     dataSource,
     dbPort,
-
 }

@@ -1,9 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { CreateEnderecoDto } from './dto/create-endereco.dto';
 import { UpdateEnderecoDto } from './dto/update-endereco.dto';
 import { Endereco } from './entities/endereco.entity';
 import { utilsEndereco } from './utils/constants';
+import { validaCampoVazio, validaTodosOsCampos } from './utils/utils';
 
 
 @Injectable()
@@ -14,7 +15,15 @@ export class EnderecoService {
   ) {}
 
   create(createEnderecoDto: CreateEnderecoDto) {
-    return this.enderecoRepository.save(createEnderecoDto);
+    if(validaCampoVazio(createEnderecoDto)){
+      try{
+        this.enderecoRepository.save(createEnderecoDto);
+
+        return
+      }catch{
+        throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    }
   }
 
   findAll() {
@@ -26,7 +35,16 @@ export class EnderecoService {
   }
 
   update(id: number, updateEnderecoDto: UpdateEnderecoDto) {
-    return this.enderecoRepository.update(id, updateEnderecoDto);
+    if(validaTodosOsCampos(updateEnderecoDto)){
+      try{
+         this.enderecoRepository.update(id, updateEnderecoDto);
+
+         return
+      }catch{
+        throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    }
+   
   }
 
   remove(id: number) {
