@@ -4,7 +4,7 @@ import { CreateEnderecoDto } from './dto/create-endereco.dto';
 import { UpdateEnderecoDto } from './dto/update-endereco.dto';
 import { Endereco } from './entities/endereco.entity';
 import { utilsEndereco } from './utils/constants';
-import { validaCampoVazio, validaNumeroDeCaracter, validaTodosOsCampos } from './utils/utils';
+import { validaTodosOsCamposPreenchidos, validaNumeroDeCaracter, validaTodosOsCamposPatch } from './utils/utils';
 
 
 @Injectable()
@@ -15,8 +15,7 @@ export class EnderecoService {
   ) {}
 
   create(createEnderecoDto: CreateEnderecoDto) {
-    if(validaCampoVazio(createEnderecoDto)){
-      
+    if(validaTodosOsCamposPreenchidos(createEnderecoDto)){
       try{
         return this.enderecoRepository.save(createEnderecoDto);
       }catch{
@@ -34,7 +33,7 @@ export class EnderecoService {
   }
 
   update(id: number, updateEnderecoDto: UpdateEnderecoDto) {
-    if(validaTodosOsCampos(updateEnderecoDto)){
+    if(validaTodosOsCamposPatch(updateEnderecoDto)){
       try{
         return this.enderecoRepository.update(id, updateEnderecoDto);
       }catch{
