@@ -1,10 +1,11 @@
 import { DataSource } from 'typeorm';
 import { Endereco } from './entities/endereco.entity';
+import { utilsEndereco } from './utils/constants';
 
 export const enderecoProviders = [
   {
-    provide: 'ENDERECO_REPOSITORY',
+    provide: utilsEndereco.repository,
     useFactory: (dataSource: DataSource) => dataSource.getRepository(Endereco),
-    inject: ['DATA_SOURCE'],
+    inject: [utilsEndereco.dataSource],
   },
 ];

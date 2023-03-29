@@ -1,7 +1,10 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { utilsConst } from 'src/utils/constants';
 import { CepService } from './cep.service';
+import { utilsCep } from './utils/constants';
 
-@Controller('cep')
+//@Controller(utilsConst.cepRoute)
+@Controller(utilsCep.cepRoute)
 export class CepController {
   constructor(private readonly cepService: CepService) {}
 

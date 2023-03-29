@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { EnderecoService } from './endereco.service';
 import { CreateEnderecoDto } from './dto/create-endereco.dto';
 import { UpdateEnderecoDto } from './dto/update-endereco.dto';
+import { utilsEndereco } from './utils/constants';
 
-@Controller('endereco')
+@Controller(utilsEndereco.route)
 export class EnderecoController {
   constructor(private readonly enderecoService: EnderecoService) {}
 

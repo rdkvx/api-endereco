@@ -2,8 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
 import { GetEnderecoDto } from 'src/endereco/dto/get-endereco.dto';
-
-
+import { utilsCep } from './utils/constants';
 
 @Injectable()
 export class CepService {
@@ -19,7 +18,7 @@ export class CepService {
     try{
       const res = await lastValueFrom(this.httpService.get(url));
 
-      endereco.response = "SUCCESS!";  
+      endereco.response = utilsCep.responseOk;  
       endereco.bairro = res.data.bairro;
       endereco.cep = res.data.cep;
       endereco.complemento = res.data.complemento;
@@ -33,7 +32,7 @@ export class CepService {
 
       return endereco;
     }catch{
-      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+      throw new HttpException(utilsCep.responseNotFound, HttpStatus.NOT_FOUND);
     }
   }
 }

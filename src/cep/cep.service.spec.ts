@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CepService } from './cep.service';
+import { utilsCep } from './utils/constants';
 
-describe('CepService', () => {
+describe(utilsCep.cepService, () => {
   let service: CepService;
 
   beforeEach(async () => {
@@ -12,7 +13,7 @@ describe('CepService', () => {
     service = module.get<CepService>(CepService);
   });
 
-  it('should be defined', () => {
+  it(utilsCep.shouldBeDefined, () => {
     expect(service).toBeDefined();
   });
 });

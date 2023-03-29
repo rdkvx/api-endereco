@@ -3,12 +3,13 @@ import { Repository } from 'typeorm';
 import { CreateEnderecoDto } from './dto/create-endereco.dto';
 import { UpdateEnderecoDto } from './dto/update-endereco.dto';
 import { Endereco } from './entities/endereco.entity';
+import { utilsEndereco } from './utils/constants';
 
 
 @Injectable()
 export class EnderecoService {
   constructor(
-    @Inject('ENDERECO_REPOSITORY')
+    @Inject(utilsEndereco.repository)
     private enderecoRepository: Repository<Endereco>,
   ) {}
 
