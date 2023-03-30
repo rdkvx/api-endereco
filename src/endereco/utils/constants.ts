@@ -13,7 +13,9 @@ const   route = 'endereco',
         logradouroErr = 'logradouro precisa ter no minimo 2 caracteres e no maximo 100',
         siafiErr = 'siaf precisa ter no minimo 2 caracteres e no maximo 100',
         ufErr = 'uf precisa de apenas 2 caracteres e sem digitos numéricos',
-        enderecoErr = 'endereco nao encontrado'
+        enderecoErr = 'endereco nao encontrado',
+        enderecoService = 'CepService',
+        shouldBeDefined = 'should be defined'
 
 export let utilsEndereco = {
     route,
@@ -31,5 +33,7 @@ export let utilsEndereco = {
     logradouroErr,
     siafiErr,
     ufErr,
-    enderecoErr
+    enderecoErr,
+    enderecoService,
+    shouldBeDefined
 }

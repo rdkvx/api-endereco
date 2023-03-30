@@ -34,4 +34,18 @@ export class Endereco {
 
     @Column({ length: 100 })
     siafi: string;
+
+    constructor(endereco?: Partial<Endereco>){
+        this.id = endereco?.id;
+        this.cep = endereco?.cep;
+        this.logradouro = endereco?.logradouro;
+        this.complemento = endereco?.complemento;
+        this.bairro = endereco?.bairro;
+        this.localidade = endereco?.localidade;
+        this.uf = endereco?.uf;
+        this.ibge = endereco?.ibge;
+        this.gia = endereco?.gia;
+        this.ddd = endereco?.ddd;
+        this.siafi = endereco?.siafi;
+    }
 }
