@@ -14,45 +14,45 @@ export class EnderecoService {
     private enderecoRepository: Repository<Endereco>,
   ) {}
 
-  create(createEnderecoDto: CreateEnderecoDto) {
+  async create(createEnderecoDto: CreateEnderecoDto) {
     if(validaTodosOsCamposPreenchidos(createEnderecoDto)){
       try{
-        return this.enderecoRepository.save(createEnderecoDto);
+        return await this.enderecoRepository.save(createEnderecoDto);
       }catch{
         throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
   }
 
-  findAll() {
+  async findAll() {
     try{
-      return this.enderecoRepository.find();
+      return await this.enderecoRepository.find();
     }catch{
       throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     try{
-      return this.enderecoRepository.findOne({ where: { id } });
+      return await this.enderecoRepository.findOne({ where: { id } });
     }catch{
       throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  update(id: number, updateEnderecoDto: UpdateEnderecoDto) {
+  async update(id: number, updateEnderecoDto: UpdateEnderecoDto) {
     if(validaTodosOsCamposPatch(updateEnderecoDto)){
       try{
-        return this.enderecoRepository.update(id, updateEnderecoDto);
+        return await this.enderecoRepository.update(id, updateEnderecoDto);
       }catch{
         throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     }
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     try{
-      return this.enderecoRepository.delete(id);
+      return await this.enderecoRepository.delete(id);
     }catch{
       throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
     }
