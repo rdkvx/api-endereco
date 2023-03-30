@@ -10,12 +10,12 @@ export const validaTodosOsCamposPreenchidos = (createEnderecoDto: CreateEndereco
         throw new HttpException(utilsEndereco.payloadInvalido, HttpStatus.BAD_REQUEST)
     }
 
-    validaNumeroDeCaracter(createEnderecoDto)
+    validaQuantidadeDeCaracter(createEnderecoDto)
     
     return true;
 }
 
-export const validaNumeroDeCaracter = (createEnderecoDto: CreateEnderecoDto)=>{
+export const validaQuantidadeDeCaracter = (createEnderecoDto: CreateEnderecoDto)=>{
     const regexApenasNumeros = /^[0-9]+$/;
     const regexContemNumeros = /[0-9]/;
     

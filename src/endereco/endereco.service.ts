@@ -4,7 +4,7 @@ import { CreateEnderecoDto } from './dto/create-endereco.dto';
 import { UpdateEnderecoDto } from './dto/update-endereco.dto';
 import { Endereco } from './entities/endereco.entity';
 import { utilsEndereco } from './utils/constants';
-import { validaTodosOsCamposPreenchidos, validaNumeroDeCaracter, validaTodosOsCamposPatch } from './utils/utils';
+import { validaTodosOsCamposPreenchidos, validaTodosOsCamposPatch } from './utils/utils';
 
 
 @Injectable()
