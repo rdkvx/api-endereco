@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { CreateEnderecoDto } from './dto/create-endereco.dto';
 import { UpdateEnderecoDto } from './dto/update-endereco.dto';
@@ -33,28 +33,35 @@ export class EnderecoService {
   }
 
   async findOne(id: number) {
-    try{
-      return await this.enderecoRepository.findOne({ where: { id } });
-    }catch{
-      throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
+    const res = await this.enderecoRepository.findOne({ where: { id } });
+
+    if(res == null){
+      throw new HttpException(utilsEndereco.enderecoErr, HttpStatus.NOT_FOUND)
     }
+
+    return res;
   }
 
   async update(id: number, updateEnderecoDto: UpdateEnderecoDto) {
     if(validaTodosOsCamposPatch(updateEnderecoDto)){
-      try{
-        return await this.enderecoRepository.update(id, updateEnderecoDto);
-      }catch{
-        throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
+      const res = await this.enderecoRepository.update(id, updateEnderecoDto);
+      
+      if(res.affected == 0){
+        throw new HttpException(utilsEndereco.enderecoErr, HttpStatus.NOT_FOUND)
       }
+  
+      return res;
     }
   }
 
   async remove(id: number) {
-    try{
-      return await this.enderecoRepository.delete(id);
-    }catch{
-      throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
+    
+    const res = await this.enderecoRepository.delete(id);
+
+    if(res.affected == 0){
+      throw new HttpException(utilsEndereco.enderecoErr, HttpStatus.NOT_FOUND)
     }
+
+    return res;
   }
 }
