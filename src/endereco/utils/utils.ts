@@ -32,7 +32,6 @@ export const validaNumeroDeCaracter = (createEnderecoDto: CreateEnderecoDto)=>{
         throw new HttpException(utilsEndereco.complementoErr, HttpStatus.BAD_REQUEST)
     }
     
-    
     if(createEnderecoDto.ddd.length != 2 || !regexApenasNumeros.test(createEnderecoDto.ddd)){
         throw new HttpException(utilsEndereco.dddErr, HttpStatus.BAD_REQUEST)
     }
@@ -115,135 +114,69 @@ export const filtraCamposPreenchidos = (updateEnderecoDto: UpdateEnderecoDto)=>{
 
 }
 
-
-
-
-export const validaCamposEdit = (camposEndereco, updateEnderecoDto: UpdateEnderecoDto) =>{
-    for(let i = 0; i < camposEndereco.length; i++){
-        if(updateEnderecoDto.bairro == camposEndereco[i]){
+export const validaCamposEdit = (camposPreenchidos, updateEnderecoDto: UpdateEnderecoDto) =>{
+    const regexApenasNumeros = /^[0-9]+$/;
+    const regexContemNumeros = /[0-9]/;
+    
+    for(let i = 0; i < camposPreenchidos.length; i++){
+        if(updateEnderecoDto.bairro == camposPreenchidos[i]){
             if(updateEnderecoDto.bairro.length < 2 || updateEnderecoDto.bairro.length > 100){
                 throw new HttpException(utilsEndereco.bairroErr, HttpStatus.BAD_REQUEST)
             }
         }
 
-        if(updateEnderecoDto.cep == camposEndereco[i]){
-            if(updateEnderecoDto.cep.length != 8){
+        if(updateEnderecoDto.cep == camposPreenchidos[i]){
+            if(updateEnderecoDto.cep.length != 8 || !regexApenasNumeros.test(updateEnderecoDto.cep)){
                 throw new HttpException(utilsEndereco.cepErr, HttpStatus.BAD_REQUEST)
             }
         }
 
-        if(updateEnderecoDto.complemento == camposEndereco[i]){
+        if(updateEnderecoDto.complemento == camposPreenchidos[i]){
             if(updateEnderecoDto.complemento.length < 2 || updateEnderecoDto.complemento.length > 100){
                 throw new HttpException(utilsEndereco.complementoErr, HttpStatus.BAD_REQUEST)
             }
         }
 
-        if(updateEnderecoDto.ddd == camposEndereco[i]){
-            if(updateEnderecoDto.ddd.length != 2){
+        if(updateEnderecoDto.ddd == camposPreenchidos[i]){
+            if(updateEnderecoDto.ddd.length != 2 || !regexApenasNumeros.test(updateEnderecoDto.ddd)){
                 throw new HttpException(utilsEndereco.dddErr, HttpStatus.BAD_REQUEST)
             }
         }
         
-        if(updateEnderecoDto.gia == camposEndereco[i]){
+        if(updateEnderecoDto.gia == camposPreenchidos[i]){
             if(updateEnderecoDto.gia.length < 2 || updateEnderecoDto.gia.length > 100){
                 throw new HttpException(utilsEndereco.giaErr, HttpStatus.BAD_REQUEST)
             }
         }
         
-        if(updateEnderecoDto.ibge == camposEndereco[i]){
+        if(updateEnderecoDto.ibge == camposPreenchidos[i]){
             if(updateEnderecoDto.ibge.length < 2 || updateEnderecoDto.ibge.length > 100){
                 throw new HttpException(utilsEndereco.ibgeErr, HttpStatus.BAD_REQUEST)
             }
         }
         
-        if(updateEnderecoDto.localidade == camposEndereco[i]){
+        if(updateEnderecoDto.localidade == camposPreenchidos[i]){
             if(updateEnderecoDto.localidade.length < 2 || updateEnderecoDto.localidade.length > 100){
                 throw new HttpException(utilsEndereco.localidadeErr, HttpStatus.BAD_REQUEST)
             }
         }
     
-        if(updateEnderecoDto.logradouro == camposEndereco[i]){
+        if(updateEnderecoDto.logradouro == camposPreenchidos[i]){
             if(updateEnderecoDto.logradouro.length < 2 || updateEnderecoDto.logradouro.length > 100){
                 throw new HttpException(utilsEndereco.logradouroErr, HttpStatus.BAD_REQUEST)
             }
         }
     
-        if(updateEnderecoDto.siafi == camposEndereco[i]){
+        if(updateEnderecoDto.siafi == camposPreenchidos[i]){
             if(updateEnderecoDto.siafi.length < 2 || updateEnderecoDto.siafi.length > 100){
                 throw new HttpException(utilsEndereco.siafiErr, HttpStatus.BAD_REQUEST)
             }
         }
     
-        if(updateEnderecoDto.uf == camposEndereco[i]){
-            const regex = /[0-9]/;
-            if(updateEnderecoDto.uf.length != 2 || regex.test(updateEnderecoDto.uf)) {
+        if(updateEnderecoDto.uf == camposPreenchidos[i]){
+            if(updateEnderecoDto.uf.length != 2 || regexContemNumeros.test(updateEnderecoDto.uf)) {
                 throw new HttpException(utilsEndereco.ufErr, HttpStatus.BAD_REQUEST)
             }
         }
     }
 }
-/* 
-export const validaCamposEdit = (camposEndereco, updateEnderecoDto: UpdateEnderecoDto) =>{
-    for(let i = 0; i < camposEndereco.length; i++){
-        if(updateEnderecoDto.bairro == camposEndereco[i]){
-            if(updateEnderecoDto.bairro.length < 2 || updateEnderecoDto.bairro.length > 100){
-                throw new HttpException(utilsEndereco.bairroErr, HttpStatus.BAD_REQUEST)
-            }
-        }
-
-        if(updateEnderecoDto.cep == camposEndereco[i]){
-            if(updateEnderecoDto.cep.length != 8){
-                throw new HttpException(utilsEndereco.cepErr, HttpStatus.BAD_REQUEST)
-            }
-        }
-
-        if(updateEnderecoDto.complemento == camposEndereco[i]){
-            if(updateEnderecoDto.complemento.length < 2 || updateEnderecoDto.complemento.length > 100){
-                throw new HttpException(utilsEndereco.complementoErr, HttpStatus.BAD_REQUEST)
-            }
-        }
-
-        if(updateEnderecoDto.ddd == camposEndereco[i]){
-            if(updateEnderecoDto.ddd.length != 2){
-                throw new HttpException(utilsEndereco.dddErr, HttpStatus.BAD_REQUEST)
-            }
-        }
-        
-        if(updateEnderecoDto.gia == camposEndereco[i]){
-            if(updateEnderecoDto.gia.length < 2 || updateEnderecoDto.gia.length > 100){
-                throw new HttpException(utilsEndereco.giaErr, HttpStatus.BAD_REQUEST)
-            }
-        }
-        
-        if(updateEnderecoDto.ibge == camposEndereco[i]){
-            if(updateEnderecoDto.ibge.length < 2 || updateEnderecoDto.ibge.length > 100){
-                throw new HttpException(utilsEndereco.ibgeErr, HttpStatus.BAD_REQUEST)
-            }
-        }
-        
-        if(updateEnderecoDto.localidade == camposEndereco[i]){
-            if(updateEnderecoDto.localidade.length < 2 || updateEnderecoDto.localidade.length > 100){
-                throw new HttpException(utilsEndereco.localidadeErr, HttpStatus.BAD_REQUEST)
-            }
-        }
-    
-        if(updateEnderecoDto.logradouro == camposEndereco[i]){
-            if(updateEnderecoDto.logradouro.length < 2 || updateEnderecoDto.logradouro.length > 100){
-                throw new HttpException(utilsEndereco.logradouroErr, HttpStatus.BAD_REQUEST)
-            }
-        }
-    
-        if(updateEnderecoDto.siafi == camposEndereco[i]){
-            if(updateEnderecoDto.siafi.length < 2 || updateEnderecoDto.siafi.length > 100){
-                throw new HttpException(utilsEndereco.siafiErr, HttpStatus.BAD_REQUEST)
-            }
-        }
-    
-        if(updateEnderecoDto.uf == camposEndereco[i]){
-            const regex = /[0-9]/;
-            if(updateEnderecoDto.uf.length != 2 || regex.test(updateEnderecoDto.uf)) {
-                throw new HttpException(utilsEndereco.ufErr, HttpStatus.BAD_REQUEST)
-            }
-        }
-    }
-} */

@@ -25,11 +25,19 @@ export class EnderecoService {
   }
 
   findAll() {
-    return this.enderecoRepository.find();;
+    try{
+      return this.enderecoRepository.find();
+    }catch{
+      throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   findOne(id: number) {
-    return this.enderecoRepository.findOne({ where: { id } });
+    try{
+      return this.enderecoRepository.findOne({ where: { id } });
+    }catch{
+      throw new HttpException(utilsEndereco.erroInterno, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   update(id: number, updateEnderecoDto: UpdateEnderecoDto) {
