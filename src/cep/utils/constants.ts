@@ -2,8 +2,8 @@ const   cepController = 'CepController',
         shouldBeDefined = 'should be defined',
         cepRoute = 'cep',
         cepService = 'CepService',
-        responseOk = 'Success!',
-        responseNotFound = 'Not Found'
+        responseOk = 'Sucesso!',
+        responseNotFound = 'CEP nao encontrado'
 
 
 export let utilsCep = {
